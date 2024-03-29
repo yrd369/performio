@@ -1,11 +1,22 @@
 import express from "express";
 import "dotenv/config";
 import router from "./routes/router.js";
+import mongoose from "mongoose";
 
 const server = express();
 
-server.use(router)
+server.use(express.json());
+server.use(router);
 
-server.listen(process.env.PORT, (error) => {
-  error && console.log(error);
-});
+const dataBaseConnection = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    server.listen(process.env.PORT, () => {
+      console.log("Database connected and running on port");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+dataBaseConnection();
