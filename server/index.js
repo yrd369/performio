@@ -3,13 +3,26 @@ import "dotenv/config";
 import router from "./routes/router.js";
 import mongoose from "mongoose";
 import cors from "cors";
+import authRoute from "./routes/authRoutes.js";
 
 const server = express();
 
-// middleware
+
 server.use(express.json());
 server.use(cors());
 server.use(router);
+server.use(authRoute);
+
+// middleware
+server.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal server error";
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
 
 // connecting database
 const dataBaseConnection = async () => {
