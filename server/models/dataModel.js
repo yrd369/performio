@@ -12,4 +12,5 @@ const schema = new Schema(
 );
 
 // model
-export const dataModel = mongoose.model("data", schema);
+export const dataModel = mongoose.model("data", schema
+);

@@ -1,36 +1,27 @@
 import express from "express";
-import { dataModel } from "../models/dataModel.js";
+import {
+  deleteData,
+  editData,
+  getAllData,
+  getSingleData,
+  postData,
+} from "../controllers/dataController.js";
 
 const router = express.Router();
 
 // get all datas
-router.get("/data", async (req, res) => {
-  const allData = await dataModel.find({});
-  res.json(allData);
-});
+router.get("/data", getAllData);
 
 // get single data
-router.get("/data/:id", async (req, res) => {
-  const { id } = req.params;
-  const singleData = await dataModel.find({ _id: id });
-  res.json(singleData);
-});
-
-// edit data
-router.patch("/data/:id", async (req, res) => {
-  const { id } = req.params;
-  const editData = await dataModel.findByIdAndUpdate({ _id: id }, req.body);
-  res.json(editData);
-});
+router.get("/data/:id", getSingleData);
 
 // post data
-router.post("/create", (req, res) => {
-  res.json({ message: "data posted" });
-});
+router.post("/create", postData);
+
+// edit data
+router.patch("/data/:id", editData);
 
 // delete data
-router.delete("/data/:id", (req, res) => {
-  res.json({ message: "data deleted" });
-});
+router.delete("/data/:id", deleteData);
 
 export default router;
