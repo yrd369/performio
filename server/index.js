@@ -23,7 +23,7 @@ const dataBaseConnection = async () => {
   }
 };
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 server.use(express.json());
 server.use(cors());
@@ -31,11 +31,11 @@ server.use(cors());
 server.use("/api/auth", authRoute);
 server.use("/api", router);
 
-server.use(express.static(path.join(__dirname, "/client/dist")));
+// server.use(express.static(path.join(__dirname, "/client/dist")));
 
-server.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
+// server.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+// });
 
 // middleware
 server.use((err, req, res, next) => {
