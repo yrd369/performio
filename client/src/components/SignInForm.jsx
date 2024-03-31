@@ -1,17 +1,48 @@
 import FormInput from "./FormInput";
 import Button from "./Button";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignInForm() {
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const sendInfo = (data) => {
-    console.log(data);
-    alert(`You are successfully logged in !`);
+
+  // sending user details
+  const sendInfo = async (data) => {
+    try {
+      setLoading(true);
+      const response = await fetch("http://localhost:4000/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (result.success === false) {
+        setLoading(false);
+        setError(result.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      navigate("/");
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+
+    setError(false);
   };
+
   return (
     <>
       <form
@@ -53,7 +84,8 @@ function SignInForm() {
         <div>
           <span className="text-blue-500 text-sm">Forgot password?</span>
         </div>
-        <Button value={"Sign In"}/>
+        <Button value={loading ? "loading" : "Sign in"} />
+        {error && <p className="text-red-500 mt-5">{error}</p>}
       </form>
     </>
   );
