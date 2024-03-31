@@ -1,24 +1,48 @@
 import FormInput from "./FormInput";
 import Button from "./Button";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
+  const navigate = useNavigate()
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  // sending user details
   const sendInfo = async (data) => {
-    const response = await fetch("http://localhost:4000/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    console.log(result);
+    try {
+      setLoading(true);
+      const response = await fetch("http://localhost:4000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (result.success === false) {
+        setLoading(false);
+        setError(result.message);
+        return;
+      }
+      setLoading(false);
+      setError(null)
+      navigate("/sign-in")
+    } catch (error) {
+      setLoading(false);
+      setError(error.message)
+    }
+
+    setError(false);
   };
+
   return (
     <>
       <form
@@ -73,7 +97,8 @@ function SignUpForm() {
           })}
           error={errors.password}
         />
-        <Button value={"Sign Up"} />
+        <Button value={loading ? "loading" : "Sign Up"} />
+        {error && <p className="text-red-500 mt-5">{error}</p>}
       </form>
     </>
   );
