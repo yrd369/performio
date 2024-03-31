@@ -7,11 +7,11 @@ import authRoute from "./routes/authRoutes.js";
 
 const server = express();
 
-
 server.use(express.json());
 server.use(cors());
-server.use(router);
-server.use(authRoute);
+server.use("/api/auth",authRoute);
+server.use("/api",router);
+
 
 // middleware
 server.use((err, req, res, next) => {

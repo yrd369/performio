@@ -13,18 +13,34 @@ export const signUp = async (req, res, next) => {
     email === "" ||
     password === ""
   ) {
-    next(errorHandler(400, "All fields are required")); 
+    next(errorHandler(400, "All fields are required"));
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
   try {
-    const registeredUser = await user.create({
+    await user.create({
       username,
       email,
       password: hashedPassword,
     });
     res.status(201).json({ message: "signup successfull" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const signin = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const validUser = await user.findOne({ email: email });
+    if (!validUser) {
+      return next(errorHandler(404, "User not found"));
+    }
+    const validPassword = bcryptjs.compareSync(password, validUser.password);
+    if (!validPassword) {
+      return next(errorHandler(401, "Invalid password"));
+    }
   } catch (error) {
     next(error);
   }
