@@ -5,9 +5,9 @@ import SignInForm from "../components/SignInForm";
 import OAuth from "../components/OAuth";
 const SignIn = () => {
   return (
-    <section className="flex bg-indigo-500 font-poppins ">
+    <section className="md:flex bg-indigo-500 font-poppins ">
       {/* left side div */}
-      <section className="bg-indigo-500 h-screen w-1/2 p-10 flex flex-col justify-between">
+      <section className="bg-indigo-500 h-screen md:w-1/2 p-10 md:flex md:flex-col justify-between">
         <img
           src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT6HlBGiFyJj4hHitHUrF4FoU3M0ezgY5qChD1f4tggV4L4rdkr"
           alt="base_logo"
@@ -115,7 +115,7 @@ const SignIn = () => {
             Sign in to your account
           </span>
         </div>
-        <div className="flex space-x-5 w-96">
+        <div className="flex space-x-5 md:w-96">
         <OAuth />
           <ServiceProviderButton
             image={
