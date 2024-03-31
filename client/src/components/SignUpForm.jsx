@@ -19,13 +19,16 @@ function SignUpForm() {
   const sendInfo = async (data) => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:4000/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://performio-yrd369s-projects.vercel.app/api/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const result = await response.json();
       if (result.success === false) {
         setLoading(false);
