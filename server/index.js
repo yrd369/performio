@@ -17,8 +17,8 @@ server.use(cors());
 server.use("/api/auth", authRoute);
 server.use("/api", router);
 
-app.use(express.static(path.join(__dirname, "/client/dist")));
-app.get("*", (req, res) => {
+server.use(express.static(path.join(__dirname, "/client/dist")));
+server.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
