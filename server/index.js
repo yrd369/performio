@@ -5,12 +5,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import authRoute from "./routes/authRoutes.js";
 import { configDotenv } from "dotenv";
-import path from "path";
 
 configDotenv();
 const server = express();
-
-const __dirname = path.resolve();
 
 server.use(express.json());
 server.use(cors());
