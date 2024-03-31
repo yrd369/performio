@@ -3,9 +3,10 @@ import Button from "./Button";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import OAuth from "./OAuth";
 
 function SignUpForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
 
@@ -33,11 +34,11 @@ function SignUpForm() {
         return;
       }
       setLoading(false);
-      setError(null)
-      navigate("/sign-in")
+      setError(null);
+      navigate("/sign-in");
     } catch (error) {
       setLoading(false);
-      setError(error.message)
+      setError(error.message);
     }
 
     setError(false);

@@ -1,8 +1,8 @@
 import React from "react";
-import Form from "../components/SignInForm";
 import ServiceProviderButton from "../components/ServiceProviderButton";
 import { Link } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
+import OAuth from "../components/OAuth";
 const SignUp = () => {
   return (
     <section className="flex bg-indigo-500 font-poppins ">
@@ -115,7 +115,15 @@ const SignUp = () => {
             Create your account
           </span>
         </div>
-        <div className="flex space-x-5 w-96"></div>
+        <div className="flex space-x-5 w-96">
+          <OAuth />
+          <ServiceProviderButton
+            image={
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Apple_logo_grey.svg/1200px-Apple_logo_grey.svg.png"
+            }
+            providerName={"Sign in with apple"}
+          />
+        </div>
         <SignUpForm />
         <div className="my-5 ">
           <span className="text-sm text-gray-500">

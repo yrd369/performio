@@ -2,6 +2,7 @@ import React from "react";
 import ServiceProviderButton from "../components/ServiceProviderButton";
 import { Link } from "react-router-dom";
 import SignInForm from "../components/SignInForm";
+import OAuth from "../components/OAuth";
 const SignIn = () => {
   return (
     <section className="flex bg-indigo-500 font-poppins ">
@@ -115,12 +116,7 @@ const SignIn = () => {
           </span>
         </div>
         <div className="flex space-x-5 w-96">
-          <ServiceProviderButton
-            image={
-              "https://banner2.cleanpng.com/20180324/sww/kisspng-google-logo-g-suite-chrome-5ab6e618b3b2c3.5810634915219358967361.jpg"
-            }
-            providerName={"Sign in with Google"}
-          />
+        <OAuth />
           <ServiceProviderButton
             image={
               "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Apple_logo_grey.svg/1200px-Apple_logo_grey.svg.png"
